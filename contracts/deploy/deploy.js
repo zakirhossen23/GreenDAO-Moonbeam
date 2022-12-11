@@ -7,7 +7,6 @@ const func = async (hre) => {
 
 	await deploy('GreenDAO', {
 		from: deployer,
-		args: [ "GreenDAO", "DEV"],
 		log: true,
         waitConfirmations: 1,
 	});

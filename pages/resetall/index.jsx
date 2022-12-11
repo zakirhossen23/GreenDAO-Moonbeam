@@ -10,11 +10,7 @@ export default function ResetDataFORM() {
   const { contract, signerAddress } = useContract();
 
   async function resetData() {
-    await contract.reset_all().send({
-      from:window.ethereum.selectedAddress,
-      gasPrice: 3_000_000_000,
-      gas: 6_000_000,
-    });
+    await sendTransaction(contract.reset_all());
     window.location.href='/';
   }
 

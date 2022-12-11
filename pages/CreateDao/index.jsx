@@ -15,7 +15,7 @@ import { Checkbox } from "@heathmont/moon-core-tw";
 
 export default function CreateDao() {
   const [DaoImage, setDaoImage] = useState([]);
-  const { contract, signerAddress } = useContract()
+  const { contract, signerAddress, sendTransaction } = useContract()
   const router = useRouter();
   //Storage API for images and videos
   const NFT_STORAGE_TOKEN =
@@ -134,16 +134,12 @@ export default function CreateDao() {
         );
       }
 
-      // Creating Dao in Smart contract
-      await contract.create_dao(signerAddress, JSON.stringify(createdObject))
-      .send({
-        from:window.ethereum.selectedAddress,
-        gasPrice: 3_000_000_000,
-        gas: 6_000_000,
-      });
+      // Creating Dao in Smart contract from metamask chain
+      await sendTransaction( contract.create_dao(signerAddress, JSON.stringify(createdObject)));
 
     } catch (error) {
       console.error(error);
+      return;
       // window.location.href = "/login?[/]"; //If found any error then it will let the user to login page
     }
     router.push("/daos"); //After the success it will redirect the user to /dao page

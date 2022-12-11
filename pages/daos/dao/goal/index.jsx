@@ -78,8 +78,8 @@ export default function Goal() {
         const arr = [];
         for (let i = 0; i < Object.keys(totalIdeas).length; i++) {
           //total goal number Iteration
-          const ideasId = await contract.get_goal_id_by_goal_uri(totalIdeas[i]).call();
-          const object = JSON.parse(totalIdeas[ideasId]);
+          const ideasId = await contract.get_ideas_id_by_ideas_uri(totalIdeas[i]).call();
+          const object = JSON.parse(totalIdeas[i]);
           if (object) {
 
             arr.push({
@@ -94,6 +94,7 @@ export default function Goal() {
           }
         }
         setList(arr);
+        console.log(arr);
         setGoalURI({
           goalId: Number(id),
           Title: goalURI.properties.Title.description,

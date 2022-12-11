@@ -38,7 +38,7 @@ export default function Welcome() {
             <Image src={logo} alt="" />
           </div>
           <h1 className="text-moon-32 font-bold pt-2 pb-4">
-          Empower your Community with Evmos
+          Empower your Community with Moonbeam
           </h1>
           <p className="py-4">
             GreenDAO is a platform that empowers your community to take more
@@ -64,7 +64,7 @@ export default function Welcome() {
           <div className={`${styles.logo} pb-4`}>
             <Image src={logo} alt="" />
           </div>
-          <h1 className="text-moon-32 font-bold pb-4">Empower your Community with Evmos</h1>
+          <h1 className="text-moon-32 font-bold pb-4">Empower your Community with Moonbeam</h1>
           <p className="py-4">
           GreenDAO is a platform that empowers your community to take more
             control over the issues that affect you. Join GreenDAO and read

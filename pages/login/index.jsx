@@ -194,6 +194,7 @@ export default function Login() {
         <div className={`${styles.title} gap-8 flex flex-col`}>
           <h1 className="text-moon-32 font-bold">Login to your account</h1>
           <p className="text-trunks">Please connect to Metamask wallet in order to login.</p>
+          <p className="text-trunks">You can use one of these Moonbase alpha(Default), BNB, Goerli Test Network</p>
         </div>
         <div className={styles.divider}></div>
         <div className={`${styles.title} flex flex-col items-center gap-8`}>

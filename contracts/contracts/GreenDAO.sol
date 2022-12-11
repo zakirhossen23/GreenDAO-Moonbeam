@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
 import "@openzeppelin/contracts/utils/Strings.sol";
+import {ERC721EnumerableUpgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721EnumerableUpgradeable.sol";
 
-contract GreenDAO {
-   
+contract GreenDAO  is ERC721EnumerableUpgradeable{
 
-      struct dao_uri_struct {
+    struct dao_uri_struct {
         string dao_wallet;
         string dao_uri;
         string finished;
@@ -20,7 +19,11 @@ contract GreenDAO {
         uint256 goal_id;
         string ideas_uri;
     }
-
+    struct smart_contract_uri_struct {
+        uint256 smart_contract_id;
+        uint256 ideas_id;
+        string smart_contract_uri;
+    }
     struct goal_ideas_votes_struct {
         uint256 goal_id;
         uint256 ideas_id;
@@ -30,11 +33,13 @@ contract GreenDAO {
     uint256 private _dao_ids;
     uint256 private _goal_ids;
     uint256 private _ideas_ids;
+    uint256 private _smart_contract_ids;
     uint256 private _ideas_vote_ids;
-    mapping(uint256 => dao_uri_struct) public _dao_uris;                        //_dao_ids          => (Dao)    Dao Wallet + Dao URI   + Finished
-    mapping(uint256 => goal_uri_struct) private _goal_uris;                     //_goal_ids         => (Goal)   Dao ID + Goal URI
-    mapping(uint256 => ideas_uri_struct) public _ideas_uris;                    //_ideas_ids        => (Ideas)  Goal ID + Ideas URI
-    mapping(uint256 => goal_ideas_votes_struct) public all_goal_ideas_votes;    //_ideas_vote_ids   => (Vote)   Goal ID + Ideas ID + Wallet
+    mapping(uint256 => dao_uri_struct) public _dao_uris;                            //_dao_ids              => (Dao)                    Dao Wallet + Dao URI   + Finished
+    mapping(uint256 => goal_uri_struct) private _goal_uris;                         //_goal_ids             => (Goal)                   Dao ID + Goal URI
+    mapping(uint256 => ideas_uri_struct) public _ideas_uris;                        //_ideas_ids            => (Ideas)                  Goal ID + Ideas URI
+    mapping(uint256 => smart_contract_uri_struct) public _smart_contracts_uris;     //_smart_contract_ids   => (Ideas Smart contract)   Goal ID + Ideas URI
+    mapping(uint256 => goal_ideas_votes_struct) public all_goal_ideas_votes;        //_ideas_vote_ids       => (Vote)                   Goal ID + Ideas ID + Wallet
 
     
 
@@ -132,13 +137,22 @@ contract GreenDAO {
 
 
     //Ideas
-    function create_ideas(string memory _ideas_uri, uint256 _goal_id) public returns (uint256)
+    function create_ideas(string memory _ideas_uri, uint256 _goal_id, string[] memory _smart_contracts) public returns (uint256)
     {
         //Create ideas into _ideas_uris
         _ideas_uris[_ideas_ids] = ideas_uri_struct(_goal_id, _ideas_uri);
         _ideas_ids++;
 
+        for  (uint256 i = 0; i < _smart_contracts.length; i++) {
+            create_ideas_smart_contract(_ideas_ids,_smart_contract_ids,_smart_contracts[i]);
+            _smart_contract_ids++;
+        }
+
         return _ideas_ids;
+    }
+    function create_ideas_smart_contract(uint256 _ideas_id,uint256 _smart_contract_id ,string memory _smart_contract) private {
+        _smart_contracts_uris[_smart_contract_id] = smart_contract_uri_struct(_ideas_id,_smart_contract_id,_smart_contract);
+        _mint(msg.sender, _smart_contract_id);
     }
 
     function set_ideas(uint256 _ideas_id, string memory _ideas_uri) public {
@@ -230,5 +244,4 @@ contract GreenDAO {
       for (uint256 i = 0; i < _ideas_vote_ids; i++)     delete all_goal_ideas_votes[i];    
 
     }
-
 }

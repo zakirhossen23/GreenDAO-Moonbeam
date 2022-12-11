@@ -19,7 +19,7 @@ export default function GrantIdeas() {
   const [IdeasURI, setIdeasURI] = useState({ ideasId: "", Title: "", Description: "", wallet: "", logo: "", End_Date: "", voted: 0, isVoted: true, allfiles: [] });
 
   const [AccountAddress, setAccountAddress] = useState("");
-  const { contract, signerAddress } = useContract();
+  const { contract, signerAddress,sendTransaction } = useContract();
 
   const [count, setCount] = useState(0);
   const formatter = new Intl.NumberFormat("en-US", {
@@ -55,7 +55,7 @@ export default function GrantIdeas() {
       " seconds"
     );
   }
-  function LeftDateBid(datetext) {
+  function LeftDateSmall(datetext) {
     //String date to d/h/m/s format
 
     var c = new Date(datetext).getTime();
@@ -187,7 +187,7 @@ export default function GrantIdeas() {
       for (let i = 0; i < allDates.length; i++) {
         var date = allDates[i].getAttribute("date");
         if (date !== undefined && date !== "") {
-          allDates[i].innerHTML = LeftDateBid(date);
+          allDates[i].innerHTML = LeftDateSmall(date);
         }
       }
     } catch (error) { }
@@ -195,11 +195,12 @@ export default function GrantIdeas() {
 
 
   async function VoteIdees() {
-    await contract.create_goal_ideas_vote(Number(Goalid), Number(id), signerAddress).send({
-      from: window.ethereum.selectedAddress,
-      gasPrice: 3_000_000_000,
-      gas: 6_000_000,
-    });
+    try {
+      await sendTransaction(contract.create_goal_ideas_vote(Number(Goalid), Number(id), signerAddress));
+    } catch (error) {
+      console.error(error);
+      return;
+    } 
     window.location.reload();
   }
 
@@ -216,7 +217,7 @@ export default function GrantIdeas() {
         <div className={`${styles.title} flex flex-col gap-2`}>
           <div style={{position:'relative'}} >
             <h1 className="text-moon-32 font-bold pb-2"  style={{width: '78%'}}>{IdeasURI.Title}</h1>
-            <a style={{ width: '135px', position: 'absolute', right: '1rem', top: "0" }} onClick={() => { window.history.back() }}>
+            <a style={{ width: '135px', position: 'absolute', right: '0rem', top: "0" }} onClick={() => { window.history.back() }}>
               <Button iconleft style={{ width: '135px' }}>
                 <ControlsChevronLeft />
                 Back
@@ -232,10 +233,10 @@ export default function GrantIdeas() {
           <p>Voted: {IdeasURI.voted}</p>
         </div>
         <div className={`${styles.tabtitle} flex gap-4 justify-start`}>
-          <a className={`tab block px-3 cursor-pointer py-2 text-3xl text-[#0000ff]`} >
+          <a className={`tab block cursor-pointer py-2 text-3xl text-[#0000ff]`} >
             Ideas
           </a>
-          {(!IdeasURI.isVoted) ? (<><Button data-element-id="btn_donate" style={{ width: '147px' }} data-analytic-event-listener="true" onClick={() => { VoteIdees() }}>
+          {(!IdeasURI.isVoted) ? (<><Button data-element-id="btn_donate" style={{ width: '135px' }} data-analytic-event-listener="true" onClick={() => { VoteIdees() }}>
             Vote
           </Button></>) : (<></>)}
 

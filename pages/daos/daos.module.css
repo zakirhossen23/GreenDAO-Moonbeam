@@ -3,12 +3,12 @@
 }
 
 .title {
-  width: 760px;
+  width: 55rem;
   max-width: 95%;
 }
 
 .tabtitle {
-  width: 60rem;
+  width: 55rem;
   justify-content: space-between;
 }
 

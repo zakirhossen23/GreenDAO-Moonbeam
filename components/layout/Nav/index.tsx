@@ -3,6 +3,7 @@ import NavLink from "next/link";
 import { Button } from "@heathmont/moon-core-tw";
 import { SoftwareLogOut } from "@heathmont/moon-icons-tw";
 import isServer from "../../../components/isServer";
+import {getChain} from '../../../services/useContract';
 
 declare let window: any;
 let running = false;
@@ -10,7 +11,6 @@ export function Nav(): JSX.Element {
   const [acc, setAcc] = useState('');
   const [Balance, setBalance] = useState("");
   const [count, setCount] = useState(0);
-
 
   const [isSigned, setSigned] = useState(false);
   async function fetchInfo() {
@@ -37,7 +37,9 @@ export function Nav(): JSX.Element {
             subbing = 20;
           }
           setAcc(window.ethereum.selectedAddress.toString().substring(0, subbing) + "...");
-          setBalance(Balance / 1000000000000000000 + " DEV");
+          let token = " " + getChain( Number(window.ethereum.networkVersion)).nativeCurrency.symbol;
+          console.log(token);
+          setBalance(Balance / 1000000000000000000 + token);
           if (!isSigned)
             setSigned(true);
 

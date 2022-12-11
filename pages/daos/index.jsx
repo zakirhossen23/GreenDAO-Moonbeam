@@ -14,7 +14,7 @@ let running=false;
 export default function DAOs() {
   //Variables
   const [list, setList] = useState([]);
-  const { contract, signerAddress } = useContract()
+  const { contract } = useContract()
 
   const sleep = (milliseconds) => {return new Promise((resolve) => setTimeout(resolve, milliseconds));};
  

@@ -14,7 +14,7 @@ import { GenericPicture, ControlsPlus } from "@heathmont/moon-icons-tw";
 export default function CreateGoal() {
   const [GoalImage, setGoalImage] = useState([]);
   const [GoalRules, setGoalRules] = useState([]);
-  const { contract, signerAddress } = useContract()
+  const { contract, signerAddress,sendTransaction } = useContract()
   if (isServer()) return null;
 
   //Storage API for images and videos
@@ -127,14 +127,11 @@ export default function CreateGoal() {
     try {
 
       // Creating Goal in Smart contract
-      await contract.create_goal(JSON.stringify(createdObject),Number(id)).send({
-        from:window.ethereum.selectedAddress,
-        gasPrice: 3_000_000_000,
-        gas: 6_000_000,
-      });
+      await sendTransaction(contract.create_goal(JSON.stringify(createdObject),Number(id)));
 
     } catch (error) {
       console.error(error);
+      return;
       // window.location.href = "/login?[/]"; //If found any error then it will let the user to login page
     }
     window.location.href = `/daos/dao?[${id}]`; //After the success it will redirect the user to dao page
