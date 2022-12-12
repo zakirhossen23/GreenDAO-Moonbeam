@@ -1,13 +1,17 @@
 import "../styles/theme.css";
-import "../styles/output.css";
-import "../styles/index.scss";
-import { ThemeProvider, moonDesignLight } from "@heathmont/moon-themes";
+import "../styles/output.css"
+import "../styles/index.scss"
+import { ThemeProvider, moonDesignLight } from "@heathmont/moon-themes"
+import { SnackbarProvider } from "notistack"
+
 function MyApp({ Component, pageProps }) {
-  return (
-    <ThemeProvider theme={moonDesignLight}>
-      <Component {...pageProps} />
-    </ThemeProvider>
-  );
+	return (
+		<SnackbarProvider maxSnack={3}>
+			<ThemeProvider theme={moonDesignLight}>
+				<Component {...pageProps} />
+			</ThemeProvider>
+		</SnackbarProvider>
+	)
 }
 
-export default MyApp;
+export default MyApp

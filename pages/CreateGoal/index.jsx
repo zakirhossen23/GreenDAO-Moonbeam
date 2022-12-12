@@ -13,7 +13,6 @@ import { GenericPicture, ControlsPlus } from "@heathmont/moon-icons-tw";
 
 export default function CreateGoal() {
   const [GoalImage, setGoalImage] = useState([]);
-  const [GoalRules, setGoalRules] = useState([]);
   const { contract, signerAddress,sendTransaction } = useContract()
   if (isServer()) return null;
 

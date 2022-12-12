@@ -1,5 +1,4 @@
-{
-	"allchains": [
+{ 	"allchains": [
 		{
 			"name": "Moonbase Alpha",
 			"chain": "MOON",
@@ -45,6 +44,18 @@
 			"networkId": 5,
 			"ens": { "registry": "0x112234455c3a32fd11230c42e7bccd4a84e02010" },
 			"explorers": [{ "name": "etherscan-goerli", "url": "https://goerli.etherscan.io", "standard": "EIP3091" }]
-		}
+		},
+		{
+			"name": "Celo Alfajores Testnet",
+			"chainId": 44787,
+			"shortName": "ALFA",
+			"chain": "CELO",
+			"networkId": 44787,
+			"nativeCurrency": { "name": "CELO", "symbol": "CELO", "decimals": 18 },
+			"rpc": ["https://alfajores-forno.celo-testnet.org", "wss://alfajores-forno.celo-testnet.org/ws"],
+			"faucets": ["https://celo.org/developers/faucet", "https://cauldron.pretoriaresearchlab.io/alfajores-faucet"],
+			"infoURL": "https://docs.celo.org/",
+			"explorers": [{ "name": "Celoscan", "url": "https://celoscan.io", "standard": "EIP3091" }]
+		}	
 	]
 }

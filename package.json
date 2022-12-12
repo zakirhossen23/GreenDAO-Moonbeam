@@ -12,6 +12,7 @@
     "deploy": "cd contracts && hardhat deploy --network moonbase --reset"
   },
   "dependencies": {
+    "@certusone/wormhole-sdk": "^0.9.5",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@heathmont/moon-components": "^9.7.1",
@@ -43,6 +44,7 @@
     "next-on-netlify": "^3.0.1",
     "nft.storage": "^6.3.0",
     "normalize.css": "^8.0.1",
+    "notistack": "^2.0.8",
     "os-browserify": "^0.3.0",
     "react": "^18.1.0",
     "react-bootstrap": "^2.7.0",
