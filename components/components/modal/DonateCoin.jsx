@@ -118,7 +118,7 @@ export default function DonateCoin({ show, onHide, address }) {
 								<StyledPaper sx={{ my: 1, mx: "auto", p: 2 }}>
 									<div variant="standard" className="overflow-hidden">
 										<InputLabel sx={{ color: "black" }}>Transaction</InputLabel>
-										<a href={transaction.link} className="text-[#0000ff]" target="_blank">
+										<a href={transaction.link} className="text-[#0000ff]" rel="noreferrer" target="_blank">
 											{transaction.link}
 										</a>
 									</div>
