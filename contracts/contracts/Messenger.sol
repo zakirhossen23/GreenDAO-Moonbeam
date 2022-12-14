@@ -4,13 +4,12 @@ pragma solidity ^0.8.0;
 import "./Wormhole/IWormhole.sol";
 
 contract Messenger {
-    address private wormhole_core_bridge_address; //Core bridge of Current Chain
-    IWormhole core_bridge = IWormhole(wormhole_core_bridge_address);
+    IWormhole core_bridge; 
     uint32 nonce = 0;
     mapping(uint256 => string) all_messages;
 
     constructor(address core_bridge_address){
-        wormhole_core_bridge_address = core_bridge_address;
+        core_bridge = IWormhole(core_bridge_address); //Core bridge of Current Chain
     }
 
     function sendMsg(uint256 ideas_id, string memory messages) public returns (uint64 sequence) {
@@ -18,6 +17,11 @@ contract Messenger {
         bytes memory str =  (abi.encode(ideas_id, messages));
         sequence = core_bridge.publishMessage(nonce, str, 1);
         nonce = nonce+1;
+    }
+
+   function sendMsgLOCAL(uint256 ideas_id, string memory messages) public returns (uint256) {
+         all_messages[ideas_id] = messages;
+         return ideas_id;
     }
 
     function receiveEncodedMsg(bytes memory encodedMsg) public {

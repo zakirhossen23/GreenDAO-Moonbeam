@@ -13,7 +13,7 @@ import {Header} from "../../../../../components/layout/Header";
 import styles from "../../../daos.module.css";
 import Skeleton from "@mui/material/Skeleton";
 import CommentBox from "../../../../../components/components/Card/Comment";
-import { sendMessage } from "../../../../../services/wormhole/useMessenger"
+import { sendMessage, getAllMessagesByIdea } from "../../../../../services/wormhole/useMessenger"
 let IdeasEnd = "";
 let IdeasWaiting = false;
 let running = true;
@@ -149,7 +149,7 @@ export default function GrantIdeas() {
 				});
 
 				setimageList(object.properties.allFiles);
-
+				setCommentsList(await getAllMessagesByIdea(Number(id)))
 				if (document.getElementById("Loading")) document.getElementById("Loading").style = "display:none";
 			}
 		} catch (error) {
@@ -240,6 +240,8 @@ export default function GrantIdeas() {
 	}
 	async function saveMessage(){
 		await sendMessage(Number(window.ethereum.networkVersion), Number(ideaId),JSON.stringify(CommentsList));
+		removeElementFromArrayBYID(emptydata,0,setemptydata)
+		console.log("Saved Messages")
 	}
 
 	return (

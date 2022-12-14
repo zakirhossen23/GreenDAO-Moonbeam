@@ -27,6 +27,7 @@ const Comment = ({address, date, message, replies = [], saveMessage}) => {
 		});
 		await saveMessage();
 		setReply("");
+
 	}
 
 	return (
