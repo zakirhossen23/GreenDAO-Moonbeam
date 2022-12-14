@@ -9,7 +9,7 @@
     "lint": "next lint",
     "css:watch": "npx tailwindcss -i ./styles/globals.css -o ./styles/output.css -w",
     "css:build": "npx tailwindcss -i ./styles/globals.css -o ./styles/output.css",
-    "deploy": "cd contracts && hardhat deploy --network moonbase --reset"
+    "deploy": "cd contracts && sh deployall.bash "
   },
   "dependencies": {
     "@certusone/wormhole-sdk": "^0.9.5",
@@ -34,6 +34,7 @@
     "bootstrap": "^5.2.3",
     "buffer": "^6.0.3",
     "clean-css": "^5.3.1",
+    "colors": "^1.4.0",
     "crypto-browserify": "^3.12.0",
     "dotenv": "^16.0.1",
     "hardhat": "^2.12.3",

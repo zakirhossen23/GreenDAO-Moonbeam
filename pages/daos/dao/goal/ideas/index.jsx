@@ -13,12 +13,13 @@ import {Header} from "../../../../../components/layout/Header";
 import styles from "../../../daos.module.css";
 import Skeleton from "@mui/material/Skeleton";
 import CommentBox from "../../../../../components/components/Card/Comment";
+import { sendMessage } from "../../../../../services/wormhole/useMessenger"
 let IdeasEnd = "";
 let IdeasWaiting = false;
 let running = true;
 export default function GrantIdeas() {
 	//variables
-	const [eventId, setIdeasId] = useState(-1);
+	const [ideaId, setIdeasId] = useState(-1);
 	const [imageList, setimageList] = useState([]);
 	const [IdeasURI, setIdeasURI] = useState({ideasId: "", Title: "", Description: "", wallet: "", logo: "", End_Date: "", voted: 0, isVoted: true, allfiles: []});
 	const [DonatemodalShow, setDonatemodalShow] = useState(false);
@@ -233,11 +234,12 @@ export default function GrantIdeas() {
 			date: new Date().toISOString(),
 			id: CommentsList.length
 		});
+		await saveMessage();
 		setComment("");
 		removeElementFromArrayBYID(emptydata,0,setemptydata)
 	}
 	async function saveMessage(){
-		console.log(CommentsList);
+		await sendMessage(Number(window.ethereum.networkVersion), Number(ideaId),JSON.stringify(CommentsList));
 	}
 
 	return (

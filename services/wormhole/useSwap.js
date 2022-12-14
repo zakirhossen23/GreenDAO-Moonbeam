@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BigNumber, ethers } from "ethers"
-import { getEmitterAddressEth, parseSequenceFromLogEth, attestFromEth, tryNativeToHexString } from "@certusone/wormhole-sdk"
+import { getEmitterAddressEth, parseSequenceFromLogEth, attestFromEth, tryNativeToHexString,getIsTransferCompletedEth } from "@certusone/wormhole-sdk"
 import config from './json/config.json';
 import TestTokenABI from './json/TestTokenABI.json'
 import TokenBridgeApi from './json/TokenBridgeABI.json'
@@ -13,7 +13,7 @@ export  async function sendTransaction(chainid, amount, Recipient, ShowAlert) {
 
 	const targetNetwork = config.networks["1287"] //Moonbase
 
-	const targetProvider = new ethers.providers.JsonRpcProvider(targetNetwork.rpc)
+	let targetProvider = new ethers.providers.JsonRpcProvider(targetNetwork.rpc)
 	const targetTokenBridgeWithoutSigner = new ethers.Contract(targetNetwork.tokenBridgeAddress, TokenBridgeApi.abi, targetProvider)
 
 	const bridgeAmt = ethers.utils.parseUnits(amount, "18")
@@ -55,7 +55,8 @@ export  async function sendTransaction(chainid, amount, Recipient, ShowAlert) {
             method: 'wallet_switchEthereumChain',
             params: [{ chainId: '0x507', }], //1287
         });
-     targetSigner = new ethers.providers.Web3Provider(window.ethereum).getSigner()
+		
+     	targetSigner = new ethers.providers.Web3Provider(window.ethereum).getSigner()
         targetTokenBridge = new ethers.Contract(targetNetwork.tokenBridgeAddress, TokenBridgeApi.abi, targetSigner)
     
 
@@ -95,20 +96,15 @@ export  async function sendTransaction(chainid, amount, Recipient, ShowAlert) {
 		vaaBytes = await (await fetch(vaaURL)).json()
 	}
 	ShowAlert("success", `Wrapped and Sent to Moonbase Token Bridge!`)
-	await window.ethereum.request({
-		method: 'wallet_switchEthereumChain',
-		params: [{ chainId: '0x507', }], //1287
-	});
-	targetSigner = new ethers.providers.Web3Provider(window.ethereum).getSigner()
+ 	targetSigner = new ethers.Wallet(targetNetwork.privateKey).connect(
+        new ethers.providers.JsonRpcProvider(targetNetwork.rpc)
+    );
 	targetTokenBridge = new ethers.Contract(targetNetwork.tokenBridgeAddress, TokenBridgeApi.abi, targetSigner)
 
 	ShowAlert("pending", `Completing Transfer...`)
 	const completeTransferTx = await (await targetTokenBridge.completeTransfer(Buffer.from(vaaBytes.vaaBytes, "base64"))).wait()
     ShowAlert("success", `Successfully sent ${amount} ${FromNetwork.nativeCurrency.symbol} to ${Recipient}! `)
-	await window.ethereum.request({
-		method: 'wallet_switchEthereumChain',
-		params: [{ chainId: FromNetwork.hex.toString() }], //From Chain
-	});
+
     return {
 		transaction: `https://moonbase.moonscan.io/tx/${completeTransferTx.transactionHash}`,
 		wrappedAsset: wrappedTokenAddress

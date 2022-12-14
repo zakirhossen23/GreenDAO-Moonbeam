@@ -11,7 +11,6 @@
 			"networkId": 1287,
 			"explorers": [{ "name": "moonscan", "url": "https://moonbase.moonscan.io", "standard": "none" }]
 		},
-
 		{
 			"name": "Binance Smart Chain Testnet",
 			"chain": "BSC",
@@ -35,7 +34,7 @@
 			"name": "Goerli",
 			"title": "Ethereum Testnet Goerli",
 			"chain": "ETH",
-			"rpc": ["https://goerli.infura.io/v3/${INFURA_API_KEY}", "wss://goerli.infura.io/v3/${INFURA_API_KEY}", "https://rpc.goerli.mudit.blog/"],
+			"rpc": ["https://goerli.infura.io/v3/32f0f36f9fa64d1dabac0dbc2a768ba2", "wss://goerli.infura.io/v3/${INFURA_API_KEY}", "https://rpc.goerli.mudit.blog/"],
 			"faucets": ["http://fauceth.komputing.org?chain=5&address=${ADDRESS}", "https://goerli-faucet.slock.it?address=${ADDRESS}", "https://faucet.goerli.mudit.blog"],
 			"nativeCurrency": { "name": "Goerli Ether", "symbol": "GoerliETH", "decimals": 18 },
 			"infoURL": "https://goerli.net/#about",

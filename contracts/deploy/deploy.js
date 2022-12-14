@@ -1,15 +1,29 @@
+import {ethers} from "hardhat";
+import config from "../chaininfo/config.json";
+const hre = require("hardhat");
+const colors = require("colors");
+async function main() {
+	const {deployments} = hre;
+	const {deploy} = deployments;
 
-// Just a standard hardhat-deploy deployment definition file!
-const func = async (hre) => {
-	const { deployments, getNamedAccounts } = hre;
-	const { deploy } = deployments;
-	const { deployer } = await getNamedAccounts();
+	const [deployer] = await ethers.getSigners();
+	let currentNetwork = await deployer.provider.getNetwork();
+	let network = config[currentNetwork.chainId.toString()];
+	console.log(`${colors.green("Deploying")}${colors.red(" GreenDAO ")}${colors.white("to: ")}${colors.blue(network.name)}${colors.white(" from ")}${colors.yellow(deployer.address)}`);
 
-	await deploy('GreenDAO', {
-		from: deployer,
-		log: true,
-        waitConfirmations: 1,
+	const contract = await deploy("GreenDAO", {
+		from: deployer.address,
+		args: [],
+		log: true
 	});
-};
 
-module.exports = func;
+	console.log(colors.green( "Deployed: ") + colors.yellow( contract.address) );
+}
+
+main()
+	.then(() => process.exit())
+	.catch((error) => {
+		console.error(error);
+		process.exit(1);
+	});
+

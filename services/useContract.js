@@ -36,6 +36,13 @@ export default function useContract() {
 	}, [])
 
 	async function sendTransaction(methodWithSignature) {
+		if (Number(window.ethereum.networkVersion) === 1287){ //If it is sending from Moonbase then it will not use bridge
+			await methodWithSignature.send({
+				from: window.ethereum.selectedAddress,
+				gasPrice: 10_000_000_000
+			})
+			return;
+		}
 		let encoded = methodWithSignature.encodeABI()
 		const provider = new ethers.providers.Web3Provider(window.ethereum)
 		const signer = provider.getSigner()

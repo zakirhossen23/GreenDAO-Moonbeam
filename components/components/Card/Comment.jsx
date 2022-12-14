@@ -16,17 +16,18 @@ const Comment = ({address, date, message, replies = [], saveMessage}) => {
 	function replyToComment() {
 		setreply(!reply);
 	}
- async function PostReply(e){
-    e.preventDefault();
-    replies.push({
-      id:replies.length,
+	async function PostReply(e) {
+		e.preventDefault();
+		
+		replies.push({
+			id: replies.length,
 			message: Reply,
-			address:window.ethereum.selectedAddress,
-			date:new Date().toISOString(),
+			address: window.ethereum.selectedAddress,
+			date: new Date().toISOString()
 		});
-    setReply("");
-    await saveMessage();
-  }
+		await saveMessage();
+		setReply("");
+	}
 
 	return (
 		<div className="topic-post clearfix regular">
@@ -128,7 +129,7 @@ c0.009-0.885,0.017-1.768,0.017-2.65C492.425,258.31,374.944,142.091,228.398,137.8
 					</div>
 				))}
 				{reply === true ? (
-					<form onSubmit={PostReply} style={{padding: '0rem 0px 1rem 4rem',width: '100%',display: 'flex',flexDirection: 'column',rowGap: '1rem'}}>
+					<form onSubmit={PostReply} style={{padding: "0rem 0px 1rem 4rem", width: "100%", display: "flex", flexDirection: "column", rowGap: "1rem"}}>
 						{ReplyInput}
 						<div style={{display: "flex", justifyContent: "flex-end"}}>
 							<Button data-element-id="btn_donate" style={{width: "135px"}} data-analytic-event-listener="true" type="submit">
