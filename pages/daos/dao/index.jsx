@@ -207,7 +207,7 @@ export default function DAO() {
 											</span>
 											<div className="flex flex-col gap-2 overflow-hidden text-left">
 												<div className="font-bold">{listItem.Title}</div>
-												<div>Budget ${listItem.Budget}</div>
+												<div>Budget {listItem.Budget}</div>
 											</div>
 										</div>
 										<div className="flex justify-between align-center">
