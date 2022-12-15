@@ -113,7 +113,7 @@ export default function DonateCoin({ show, onHide, address }) {
 									<div variant="standard">
 										<InputLabel sx={{ color: "black" }}>Wrapped Token Address</InputLabel>
 										<a className="text-[#0000ff]">{transaction.token}</a>										
-										<p >Swap your token at  <a className="text-[#0000ff]" href="https://moonbeam-swap.netlify.app/#/swap" target="_blank">https://moonbeam-swap.netlify.app/#/swap</a>
+										<p >Swap your token at  <a className="text-[#0000ff]" href="https://moonbeam-swap.netlify.app/#/swap" rel="noreferrer" target="_blank">https://moonbeam-swap.netlify.app/#/swap</a>
 									</p>
 									</div>
 								</StyledPaper>
