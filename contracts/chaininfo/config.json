@@ -7,7 +7,7 @@
         "rpc": "https://goerli.infura.io/v3/32f0f36f9fa64d1dabac0dbc2a768ba2",
         "privateKey": "fb57cdb52c16a26a9f54d37ce8f106bc4a334772d5c376c08f009e042cb0a7fe",
         "corebridgeAddress": "0x706abc4E45D419950511e474C7B9Ed348A4a716c",
-        "MessengerAddress": "0x49ca241f2e8855E754541E93A57030B6C51E7C6D"
+        "MessengerAddress": "0xD31e496AAF0B32E8b464d570ee4a7E03dCa90F08"
     },
     "97": {
         "name": "Binance Testnet",
@@ -17,7 +17,7 @@
         "rpc": "https://data-seed-prebsc-1-s3.binance.org:8545",
         "privateKey": "fb57cdb52c16a26a9f54d37ce8f106bc4a334772d5c376c08f009e042cb0a7fe",
         "corebridgeAddress": "0x68605AD7b15c732a30b1BbC62BE8F2A509D74b4D",
-        "MessengerAddress": "0x6e131B3F69f33416187A6B39f982BB6eeB04C0A9"
+        "MessengerAddress": "0x4d61a58A402BA4d8Bf14492DfF765cB60190E702"
     },
     "1287": {
         "name": "Moonbase Alpha",
@@ -27,7 +27,7 @@
         "rpc": "https://rpc.api.moonbase.moonbeam.network",
         "privateKey": "fb57cdb52c16a26a9f54d37ce8f106bc4a334772d5c376c08f009e042cb0a7fe",
         "corebridgeAddress": "0xa5B7D85a8f27dd7907dc8FdC21FA5657D5E2F901",
-        "MessengerAddress": "0x47d3A8D19A9BE788a9b028AD7842d05C44B26113"
+        "MessengerAddress": "0x28216384dCCBe579cF95A08AD13c120B3E7cd9D5"
     },
     "44787": {
         "name": "Celo (Alfajores Testnet)",
@@ -37,7 +37,7 @@
         "rpc": "https://alfajores-forno.celo-testnet.org",
         "privateKey": "fb57cdb52c16a26a9f54d37ce8f106bc4a334772d5c376c08f009e042cb0a7fe",
         "corebridgeAddress": "0x88505117CA88e7dd2eC6EA1E13f0948db2D50D56",
-        "MessengerAddress": "0x90B7962D749a1323CE8b4b1DAf852C7F01CAC1aE"
+        "MessengerAddress": "0x236f49C5b237B7BED4E23bD4C819003D3f02934d"
     },
     "wormhole": {
         "restAddress": "https://wormhole-v2-testnet-api.certus.one"
