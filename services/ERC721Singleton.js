@@ -8,6 +8,7 @@ export default function ERC721Singleton(signer) {
 	try {
 		if (Number(window?.ethereum?.networkVersion) === Number(1287)) {
 			web3 = new Web3(window.ethereum);
+			console.log("using moonbase")
 		}
 	} catch (error) {	}
 	
