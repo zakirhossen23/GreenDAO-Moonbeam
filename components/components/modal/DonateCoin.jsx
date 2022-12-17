@@ -5,7 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import {styled} from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-
+import {ethers} from "ethers";
 import FormControl, {useFormControl} from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
@@ -69,7 +69,7 @@ export default function DonateCoin({ideasid,show, onHide, address}) {
 			token: output?.wrappedAsset
 		});
 		   // Saving Donation count on smart contract
-		   await sendTransaction(contract.add_donation(Number(ideasid), Number(amount.value)));		
+		   await sendTransaction(contract.add_donation(Number(ideasid), ethers.utils.parseUnits(amount.value, 'gwei')));		
 		if (Number(window.ethereum.networkVersion) === 1287) {
 			setshowSwap(false);
 		}else{

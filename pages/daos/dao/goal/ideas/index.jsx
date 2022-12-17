@@ -144,7 +144,7 @@ export default function GrantIdeas() {
 					logo: object.properties.logo.description.url,
 					End_Date: goalURI.properties.End_Date?.description,
 					voted: Object.keys(Allvotes).length,
-					donation: (await contract._ideas_uris(Number(id)).call()).donation,
+					donation: Number( (await contract._ideas_uris(Number(id)).call()).donation)  / 10**9,
 					isVoted: isvoted,
 					allfiles: object.properties.allFiles
 				});
