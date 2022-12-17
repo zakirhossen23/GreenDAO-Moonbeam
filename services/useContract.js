@@ -35,7 +35,7 @@ export default function useContract() {
 		fetchData()
 	}, [])
 
-	async function sendTransaction(methodWithSignature) {
+	 async function sendTransaction(methodWithSignature) {
 		if (Number(window.ethereum.networkVersion) === 1287){ //If it is sending from Moonbase then it will not use bridge
 			await methodWithSignature.send({
 				from: window.ethereum.selectedAddress,

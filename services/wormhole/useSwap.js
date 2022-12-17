@@ -2,9 +2,8 @@ import {useState, useEffect} from "react";
 import {BigNumber, ethers} from "ethers";
 import {getEmitterAddressEth, parseSequenceFromLogEth, attestFromEth, tryNativeToHexString, getIsTransferCompletedEth} from "@certusone/wormhole-sdk";
 import config from "./json/config.json";
-import TestTokenABI from "./json/TestTokenABI.json";
 import TokenBridgeApi from "./json/TokenBridgeABI.json";
-export async function sendTransaction(chainid, amount, Recipient, ShowAlert) {
+export async function sendTransfer(chainid, amount, Recipient, ShowAlert) {
 	let FromNetwork = config.networks[chainid];
 	const signer = new ethers.providers.Web3Provider(window.ethereum).getSigner();
 	if (Number(window.ethereum.networkVersion) === 1287) {
@@ -13,10 +12,12 @@ export async function sendTransaction(chainid, amount, Recipient, ShowAlert) {
 			from: window.ethereum.selectedAddress,
 			to: Recipient,
 			value: ethers.utils.parseEther(amount),
-			gasPrice: 6000000
+			gasPrice: 6_000_000_000
 		};
-		await signer.sendTransaction(tx);
-		return;
+		const reciept =await (await signer.sendTransaction(tx)).wait();
+		return {
+			transaction: `https://moonbase.moonscan.io/tx/${reciept.transactionHash}`
+		};
 	}
 
 	//From Transferring Chain
@@ -71,8 +72,8 @@ export async function sendTransaction(chainid, amount, Recipient, ShowAlert) {
 		targetTokenBridge = new ethers.Contract(targetNetwork.tokenBridgeAddress, TokenBridgeApi.abi, targetSigner);
 
 		await (await targetTokenBridge.createWrapped(Buffer.from(vaaBytesToken.vaaBytes, "base64"))).wait();
-		ShowAlert("success", `Created a Wrapped Token. Address: ${wrappedTokenAddress}`);
 		wrappedTokenAddress = await targetTokenBridge.wrappedAsset(FromNetwork.wormholeChainId, Buffer.from(tryNativeToHexString(FromNetwork.testToken, "ethereum"), "hex"));
+		ShowAlert("success", `Created a Wrapped Token. Address: ${wrappedTokenAddress}`);
 	} else {
 		ShowAlert("success", `Using Wrapped Token Address: ${wrappedTokenAddress}`);
 	}

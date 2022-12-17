@@ -18,6 +18,7 @@ contract GreenDAO  is ERC721EnumerableUpgradeable{
     struct ideas_uri_struct {
         uint256 goal_id;
         string ideas_uri;
+        uint256 donation;
     }
     struct smart_contract_uri_struct {
         uint256 smart_contract_id;
@@ -140,7 +141,7 @@ contract GreenDAO  is ERC721EnumerableUpgradeable{
     function create_ideas(string memory _ideas_uri, uint256 _goal_id, string[] memory _smart_contracts) public returns (uint256)
     {
         //Create ideas into _ideas_uris
-        _ideas_uris[_ideas_ids] = ideas_uri_struct(_goal_id, _ideas_uri);
+        _ideas_uris[_ideas_ids] = ideas_uri_struct(_goal_id, _ideas_uri,0);
         _ideas_ids++;
 
         for  (uint256 i = 0; i < _smart_contracts.length; i++) {
@@ -158,6 +159,11 @@ contract GreenDAO  is ERC721EnumerableUpgradeable{
     function set_ideas(uint256 _ideas_id, string memory _ideas_uri) public {
         //Set ideas uri
         _ideas_uris[_ideas_id].ideas_uri = _ideas_uri;
+    }
+    
+    function add_donation(uint256 _ideas_id, uint256 _doantion) public {
+        //Set ideas uri
+        _ideas_uris[_ideas_id].donation += _doantion;
     }
 
     function get_all_ideas() public view returns (string[] memory) {

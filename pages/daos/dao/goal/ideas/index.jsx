@@ -144,6 +144,7 @@ export default function GrantIdeas() {
 					logo: object.properties.logo.description.url,
 					End_Date: goalURI.properties.End_Date?.description,
 					voted: Object.keys(Allvotes).length,
+					donation: (await contract._ideas_uris(Number(id)).call()).donation,
 					isVoted: isvoted,
 					allfiles: object.properties.allFiles
 				});
@@ -295,6 +296,7 @@ export default function GrantIdeas() {
 					/>
 
 					<Loader element={<div className="flex">Voted: {IdeasURI.voted} </div>} width={"100%"} />
+					<Loader element={<div className="flex">Donated: {IdeasURI.donation} </div>} width={"100%"} />
 					<Loader element={<p>{IdeasURI.Description} </p>} width={"100%"} />
 				</div>
 				<div className={`${styles.tabtitle} flex gap-4 justify-start`}>
@@ -374,6 +376,7 @@ export default function GrantIdeas() {
 			</div>
 
 			<DonateCoin
+				ideasid={ideaId}
 				show={DonatemodalShow}
 				onHide={() => {
 					setDonatemodalShow(false);
